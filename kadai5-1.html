@@ -12,14 +12,25 @@
     
     <div id="result">結果はここに表示</div>
     <script>
-        async function zip_api(myForm) {
-            const endpoint = "https://zipcloud.ibsnet.co.jp/api/search";
-            const aRes = await fetch("https://zipcloud.ibsnet.co.jp/api/search");
-            const data = await aRes.text()
-            // ここにコードを書く
-            // zipcloudのAPI呼び出して結果を表示する
-            document.getElementById("result").innerHTML =  myForm.zipcode.value; // 現状ではそのまま表示しているだけ
+    async function zip_api(myForm) {
+        const zipcode = myForm.zipcode.value;
+        const endpoint = `https://zipcloud.ibsnet.co.jp/api/search?zipcode=${zipcode}`;
+
+    try {
+        const response = await fetch(endpoint);
+        const data = await response.json();
+
+    if (data.results) {
+        const address = data.results[0];
+        const fullAddress = `${address.address1} ${address.address2} ${address.address3}`;
+        document.getElementById("result").innerHTML = `<p><strong>住所:</strong> ${fullAddress}</p>`;
+        } else {
+            document.getElementById("result").innerHTML = `<p>該当する住所が見つかりませんでした。</p>`;
+            }
+        } catch (error) {
+                document.getElementById("result").innerHTML = `<p>エラーが発生しました: ${error.message}</p>`;
         }
+    }
     </script>
 </body>
 </html>

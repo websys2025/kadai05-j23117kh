@@ -8,7 +8,8 @@
 　　：zipcode：検索する郵便番号（7桁、ハイフンなし）
 ### Q3-2. 各自で調査したAPIについて説明せよ。
 * APIの名称と参照URL
-  ：
+  ：Nominatim
+  ：https://nominatim.openstreetmap.org/ui/search.html
 * エンドポイントと機能
 * リクエストとレスポンスのフォーマット
 ### Q3-3. 感想

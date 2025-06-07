@@ -4,19 +4,41 @@
     <title>演習課題5-2：外部APIの呼び出しテスト</title>
 </head>
 <body>
-    <h1 id="msg">何かのAPI</h1>
+    <h1 id="msg">都市名から緯度と経度を表示するAPI</h1>
     <form name="apiform"><p>
-        何かのフォーム：<input type="text" name="form_data">
+        都市名(ローマ字)：<input type="text" name="form_data">
         <button type="button" id="btn1" onclick="some_api(this.form)">実行</button>
     </p></form>
     
     <div id="result"></div>
-    <script>
+<script>
         async function some_api(myForm) {
-            // ここにコードを書く
-            document.getElementById("result").innerHTML += myForm.form_data.value+"<br />";
-            document.apiform.reset();
+        const city = myForm.form_data.value;
+        const URL = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(city)}`;
+
+        try {
+            const response = await fetch(URL, {
+                headers: {
+                    'User-Agent': 'Mozilla/5.0 (your-email@example.com)' 
+                }
+            });
+
+            const data = await response.json();
+
+            if (data.length > 0) {
+                const { lat, lon } = data[0];
+                document.getElementById("result").innerHTML += 
+                    `<strong>${city}</strong> の座標：緯度 ${lat}、経度 ${lon}<br />`;
+            } else {
+                document.getElementById("result").innerHTML += 
+                    `<strong>${city}</strong> は見つかりませんでした。<br />`;
+            }
+        } catch (error) {
+            console.error("エラー:", error);
+            document.getElementById("result").innerHTML += 
+                `<span style="color:red;">エラーが発生しました：${error.message}</span><br />`;
         }
-    </script>
+    }
+</script>
 </body>
 </html>

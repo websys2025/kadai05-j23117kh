@@ -4,14 +4,18 @@
   ：https://zipcloud.ibsnet.co.jp/api/search
   ：ユーザーが郵便番号を入力すると、それに対応する住所を自動入力できる。
 * リクエストとレスポンスのフォーマット
-  ：HTTPメソッドGETでデータを取得
-　　：zipcode：検索する郵便番号（7桁、ハイフンなし）
+  ：リクエスト：HTTPメソッドGETでデータを取得
+  ：レスポンス：JSON
 ### Q3-2. 各自で調査したAPIについて説明せよ。
 * APIの名称と参照URL
   ：Nominatim
-  ：https://nominatim.openstreetmap.org/ui/search.html
+  ：https://nominatim.org/release-docs/latest/api/Search/
 * エンドポイントと機能
+  ：https://nominatim.openstreetmap.org/ui/search.html
+  :都市を入力すると緯度と経度が出力される
 * リクエストとレスポンスのフォーマット
+  ：リクエスト：HTTPメソッドGET
+  ：レスポンス：JSON
 ### Q3-3. 感想
 * 今回の課題で苦労したこと
 * 演習を通して理解できたこと
